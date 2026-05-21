@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exatas - Tutoria ICB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --cor-fundo-site: #eaf1f5;
+            --cor-primaria: #5c7fa9;
+            --cor-vinho: #9e1b32;
+        }
+
+        body { 
+            background-color: var(--cor-fundo-site); 
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        /* CABEÇALHO COM IMAGEM (HERO) */
+        .capa-exatas {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .img-capa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            filter: brightness(0.6); /* Escurece a imagem para o título brilhar */
+        }
+
+        .titulo-capa {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            text-align: center;
+        }
+
+        /* LISTA DE DISCIPLINAS */
+        .secao-titulo {
+            border-left: 5px solid var(--cor-vinho);
+            padding-left: 15px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--cor-primaria);
+            font-weight: bold;
+        }
+
+        .card-material {
+            border: none;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+
+        .card-material:hover {
+            transform: translateY(-3px);
+        }
+
+        .btn-baixar {
+            background-color: var(--cor-primaria);
+            color: white;
+            border: none;
+        }
+
+        .btn-baixar:hover {
+            background-color: var(--cor-vinho);
+            color: white;
+        }
+
+        .btn-voltar-fixo {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: white;
+            color: var(--cor-primaria);
+            border: 2px solid var(--cor-primaria);
+            border-radius: 50px;
+            padding: 8px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+/* Estilo das Abas (Tabs) */
+.nav-pills .nav-link {
+    color: var(--cor-primaria);
+    font-weight: bold;
+    border-radius: 50px;
+    margin-right: 10px;
+    border: 1px solid var(--cor-primaria);
+}
+
+.nav-pills .nav-link.active {
+    background-color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+
+/* Ícone de vídeo para destacar */
+.icone-video {
+    color: #ff0000; /* Vermelho do YouTube */
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+
+
+    </style>
+</head>
+<body>
+
+    <header class="capa-exatas">
+        <img src="exatas.png" alt="Exatas" class="img-capa">
+        <h1 class="titulo-capa">Disciplinas Exatas</h1>
+    </header>
+
+    <main class="container mb-5">
+    
+    <ul class="nav nav-pills my-4 justify-content-center" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-apostilas-tab" data-bs-toggle="pill" data-bs-target="#pills-apostilas" type="button" role="tab">Apostilas</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-slides-tab" data-bs-toggle="pill" data-bs-target="#pills-slides" type="button" role="tab">Slides</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-video-tab" data-bs-toggle="pill" data-bs-target="#pills-video" type="button" role="tab">Vídeos</button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="pills-tabContent">
+      
+      <div class="tab-pane fade show active" id="pills-apostilas" role="tabpanel">
+        
+        <h2 class="h4 secao-titulo">Pré-Cálculo</h2>
+        <div class="card card-material shadow-sm mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">Conjuntos Numéricos e Operações Básicas</h6>
+                    <p class="small text-muted mb-0">PDF</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1y6lzSZVO4yOpTPqWcjF31pIHifwin1Wc/view?usp=drivesdk" target="_blank" class="btn btn-sm btn-baixar">Acessar</a>
+            </div>
+        </div>
+
+        <div class="card card-material shadow-sm mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">Expressões Numéricas e Frações</h6>
+                    <p class="small text-muted mb-0">PDF</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1UfQYzYhcgMaeRo6zKiUogg7enee24R1B/view?usp=drivesdk" target="_blank" class="btn btn-sm btn-baixar">Acessar</a>
+            </div>
+        </div>
+
+        <h2 class="h4 secao-titulo">Cálculo I</h2>
+        <div class="card card-material shadow-sm mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">Funções</h6>
+                    <p class="small text-muted mb-0">PDF</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1tbdIyVO4lyBg0UYuuq9xQIf0uMEDKOrk/view?usp=drivesdk" target="_blank" class="btn btn-sm btn-baixar">Acessar</a>
+            </div>
+        </div>
+      </div> <div class="tab-pane fade" id="pills-slides" role="tabpanel">
+        <h2 class="h4 secao-titulo">Materiais de Aula</h2>
+        <div class="card card-material shadow-sm mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">Slide 1: Funções, Gráficos e Operações com Funções</h6>
+                    <p class="small text-muted mb-0">PowerPoint | Aula 01</p>
+                </div>
+                <a href="https://drive.google.com/file/d/1SUwDNOFgcEvMjAP9Mvr0-UaK7eoblwNL/view?usp=drivesdk" target="_blank" class="btn btn-sm btn-baixar">Ver Slides</a>
+            </div>
+        </div>
+      </div> <div class="tab-pane fade" id="pills-video" role="tabpanel">
+        
+        <h2 class="h4 secao-titulo">Vídeos Recomendados de Cálculo I</h2>
+        <div class="card card-material shadow-sm mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">▶️ Cálculo 1. Equaciona</h6>
+                    <p class="small text-muted mb-0">YouTube | Playlist</p>
+                </div>
+                <a href="https://youtube.com/playlist?list=PLEfwqyY2ox86LhxKybOY3_IG-7R5herLC&si=89s09XvpNG3dM4Oy" target="_blank" class="btn btn-sm btn-outline-danger">Assistir</a>
+            </div>
+        </div>
+
+        <div class="card card-material shadow-sm mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">▶️ Projeto Newton | Cálculo 1 | Nitae UFPA</h6>
+                    <p class="small text-muted mb-0">YouTube | Playlist</p>
+                </div>
+                <a href="https://youtube.com/playlist?list=PLyLl-f6RUjdT1jXWHiZJ6yWuKzaFhnFN8&si=dQPIaiDrifSjvGLq" target="_blank" class="btn btn-sm btn-outline-danger">Assistir</a>
+            </div>
+        </div>
+
+        <h2 class="h4 secao-titulo">Vídeos Recomendados de Álgebra Linear</h2>
+        <div class="card card-material shadow-sm mb-3">
+            <div class="card-body d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="mb-1">▶️ Álgebra Linear. Matemateca</h6>
+                    <p class="small text-muted mb-0">YouTube | Playlist</p>
+                </div>
+                <a href="https://youtube.com/playlist?list=PLmtT_GZAQdt-9QNWJw1vzJldnuyGmdidq&si=fkYUvS6oN0uQQHsb" target="_blank" class="btn btn-sm btn-outline-danger">Assistir</a>
+            </div>
+        </div>
+
+      </div> </div>
+</main>
+
+
+
+
+    <a href="javascript:history.back()" class="btn-voltar-fixo">← Voltar</a>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+
+</body>
+</html>
+

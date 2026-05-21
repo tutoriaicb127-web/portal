@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutoria ICB - UFPA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/dist/bootstrap.min.css" rel="stylesheet">
+        <style>
+        :root {
+            --cor-fundo-site: #eaf1f5;      /* Azul gelo (fundo) */
+            --cor-primaria-logo: #5c7fa9;   /* Azul-cinza (identidade) */
+            --cor-destaque-brasao: #9e1b32; /* Vinho (detalhes/hover) */
+            --cor-texto: #333333;
+        }
+
+        body { 
+            background-color: var(--cor-fundo-site); 
+            color: var(--cor-texto);
+        }
+
+        .hero-section { 
+            background-color: var(--cor-primaria-logo);
+            color: white; 
+            border-radius: 0 0 20px 20px;
+        }
+
+        .card-categoria h3 {
+            color: var(--cor-primaria-logo);
+        }
+
+        .btn-acesso { 
+            background-color: var(--cor-primaria-logo); 
+            border: none;
+        }
+
+        .btn-acesso:hover { 
+            background-color: var(--cor-destaque-brasao); 
+            color: white; 
+        }
+
+.header-fixo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(135deg, #5c7fa9 0%, #3e5b7a 100%);
+    
+    /* ESSENCIAL PARA CENTRALIZAR TUDO */
+    display: flex;
+    flex-direction: column;
+    align-items: center;    /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    text-align: center;      /* Garante o texto centralizado se quebrar linha */
+    
+    padding: 10px 0;
+}
+
+.titulo-site {
+    margin: 0;
+    font-weight: bold;
+    width: 100%;
+    line-height: 1.2; /* Adicione isso para manter o texto compacto */
+}
+
+.logo-topo {
+    height: 80px; /* Alinhado com o valor inicial do JS */
+    margin-bottom: 5px;
+}
+
+.titulo-site {
+    font-size: 28px; /* Alinhado com o valor inicial do JS */
+    margin: 0;
+    font-weight: bold;
+    width: 100%;
+    line-height: 1.2;
+}
+
+
+
+
+
+.espacador {
+    /* Faz a div ter 40% da altura da tela + um pouco de folga */
+    height: 45vh; 
+    width: 100%;
+    display: block;
+}
+
+
+
+
+
+/* Container de rolagem horizontal */
+.pista-cards {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 15px;
+    padding: 20px 10px;
+    scrollbar-width: none; /* Esconde barra no Firefox */
+    -webkit-overflow-scrolling: touch;
+}
+
+.pista-cards::-webkit-scrollbar { display: none; } /* Esconde barra no Chrome */
+
+.card-wrapper {
+    flex: 0 0 82%; /* Deixa um pedaço do próximo card visível */
+    scroll-snap-align: center;
+    text-decoration: none !important;
+    color: inherit;
+}
+
+
+
+/* Efeito de clique */
+.card-wrapper:active .card-categoria {
+    transform: scale(0.95);
+    background-color: #f8f9fa;
+}
+
+
+
+
+
+
+
+
+/* Configuração do Card Inteiro como Botão de Imagem */
+.card-categoria {
+    border: none;
+    border-radius: 20px;
+    height: 350px; 
+    
+    /* ESSENCIAL: Isso prende a imagem absoluta dentro do card */
+    position: relative; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    overflow: hidden; 
+}
+
+
+
+/* Deixa as setinhas do carrossel visíveis no fundo claro */
+.carousel-control-prev, .carousel-control-next {
+    width: 10%;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.2); /* Cria um círculo cinza suave atrás da seta */
+    border-radius: 50%;
+    padding: 20px;
+}
+
+
+/* Configuração do Card Inteiro como Botão de Imagem */
+.card-categoria {
+    border: none;
+    border-radius: 20px;
+    height: 350px; /* Altura maior para o botão de imagem */
+    
+    /* Prepara o card para ter texto flutuando */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Empurra o texto para a base */
+    overflow: hidden; /* Garante que as bordas da imagem acompanhem o arredondado */
+}
+
+/* Nova definição da Imagem (Cobrindo Tudo) */
+.img-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Faz a imagem cobrir todo o bloco sem esticar */
+    z-index: 1; /* Fica atrás do texto */
+}
+
+/* Sombra e Margem para o Texto sobre a Imagem */
+.card-categoria .text-block {
+    padding: 15px;
+    z-index: 2; /* Fica na frente da imagem */
+    
+    /* Adiciona uma sombra branca suave atrás do texto para leitura */
+    background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
+    border-radius: 0 0 20px 20px;
+}
+
+/* Ajustes Finais no Texto sobre Imagem */
+.card-categoria h3 {
+    margin: 0;
+    font-weight: bold;
+    color: #333; /* Cor mais escura para contraste */
+}
+
+/* Sombra escura na base para dar leitura total ao texto branco */
+.card-categoria .text-block {
+    padding: 20px 15px;
+    z-index: 2;
+    /* Gradiente preto mais forte na base para destacar o texto */
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+    border-radius: 0 0 20px 20px;
+    width: 100%;
+}
+
+/* Ajuste das cores para branco (máximo contraste sobre a sombra) */
+.card-categoria h3 {
+    margin: 0;
+    font-weight: bold;
+    color: #ffffff !important; /* Branco puro */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra extra nas letras */
+}
+
+.card-categoria p.text-muted {
+    margin: 5px 0 0 0;
+    font-size: 0.85rem;
+    color: #eeeeee !important; /* Cinza bem clarinho quase branco */
+    opacity: 1;
+}
+
+
+
+
+
+
+
+/* Efeito de zoom na imagem quando tocar no card */
+.card-wrapper:active .img-card {
+    transform: scale(1.1);
+}
+
+
+/* Estilo para os botões de navegação no PC */
+.btn-outline-primary {
+    border-color: var(--cor-primaria-logo) !important;
+    color: var(--cor-primaria-logo) !important;
+    transition: all 0.3s;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--cor-destaque-brasao) !important;
+    border-color: var(--cor-destaque-brasao) !important;
+    color: white !important;
+}
+
+
+    </style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/dist/bootstrap.min.css" rel="stylesheet">
+
+
+</head>
+<body>
+
+    <header class="header-fixo">
+        <div class="container text-center">
+            <img src="logo_tutoria.png" alt="Logo" class="logo-topo">
+            <h1 class="titulo-site">Portal de Apoio ao Discente</h1>
+            <p class="subtitulo-site">ICB - UFPA</p>
+        </div>
+    </header>
+
+    <div class="espacador"></div>
+
+
+    
+
+
+
+    <main class="container my-5">
+    <div class="text-center mb-4">
+        <h2 class="h4 text-muted">Selecione as disciplinas de interesse:</h2>
+    </div>
+
+    <div class="pista-cards">
+        
+        <a href="exatas.html" class="card-wrapper">
+            <div class="card shadow-sm card-categoria text-center">
+                <img src="exatas.png" alt="Exatas" class="img-card">
+                <div class="text-block">
+                    <h3 class="h5">Exatas</h3>
+                    <p class="text-muted mb-0">Cálculo, Física e Química.</p>
+                </div>
+            </div>
+        </a>
+
+
+
+        <a href="aviso.html" class="card-wrapper">
+            <div class="card shadow-sm card-categoria text-center">
+                <img src="biologicas.png" alt="Biológicas" class="img-card">
+                <div class="text-block">
+                    <h3 class="h5">Biológicas</h3>
+                    <p class="text-muted mb-0">Genética, Botânica e Zoologia.</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="aviso.html" class="card-wrapper">
+            <div class="card shadow-sm card-categoria text-center">
+                <img src="biomedicas.png" alt="Biomédicas" class="img-card">
+                <div class="text-block">
+                    <h3 class="h5">Biomédicas</h3>
+                    <p class="text-muted mb-0">Anatomia e Fisiologia.</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="aviso.html" class="card-wrapper">
+            <div class="card shadow-sm card-categoria text-center">
+                <img src="humanas.png" alt="Humanas" class="img-card">
+                <div class="text-block">
+                    <h3 class="h5">Humanas</h3>
+                    <p class="text-muted mb-0">Ética e Metodologia.</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="aviso.html" class="card-wrapper">
+            <div class="card shadow-sm card-categoria text-center">
+                <img src="linguagens.png" alt="Linguagens" class="img-card">
+                <div class="text-block">
+                    <h3 class="h5">Linguagens</h3>
+                    <p class="text-muted mb-0">Leitura, Escrita e Interpretação.</p>
+                </div>
+            </div>
+        </a>
+
+    </div>
+
+
+<div class="d-none d-md-flex justify-content-center gap-3 mt-3">
+        <button class="btn btn-outline-primary rounded-circle p-3" onclick="rolarPista('esquerda')">
+            <i class="bi bi-arrow-left">←</i>
+        </button>
+        <button class="btn btn-outline-primary rounded-circle p-3" onclick="rolarPista('direita')">
+            <i class="bi bi-arrow-right">→</i>
+        </button>
+    </div>
+
+
+
+
+</main>
+
+
+
+
+
+    <footer class="text-center py-4 text-muted border-top bg-white mt-5">
+        <p class="small mb-0">&copy; 2026 Programa de Tutoria - ICB / UFPA</p>
+    </footer>
+
+    <script>
+    // Mantenha APENAS esta parte:
+    window.onscroll = function() {
+        const header = document.querySelector(".header-fixo");
+        const logo = document.querySelector(".logo-topo");
+        const titulo = document.querySelector(".titulo-site");
+        const subtitulo = document.querySelector(".subtitulo-site");
+        
+        let scroll = window.scrollY;
+        let progresso = Math.min(scroll / 200, 1); 
+
+        header.style.minHeight = `calc(40vh - (${progresso} * (40vh - 70px)))`;
+        logo.style.height = (80 - (progresso * 40)) + "px";
+        titulo.style.fontSize = (28 - (progresso * 10)) + "px";
+        subtitulo.style.opacity = 1 - progresso;
+        subtitulo.style.visibility = (progresso > 0.9) ? "hidden" : "visible";
+    };
+
+    function rolarPista(direcao) {
+        const pista = document.querySelector('.pista-cards');
+        const larguraCard = document.querySelector('.card-wrapper').offsetWidth;
+        
+        if (direcao === 'direita') {
+            pista.scrollBy({ left: larguraCard, behavior: 'smooth' });
+        } else {
+            pista.scrollBy({ left: -larguraCard, behavior: 'smooth' });
+        }
+    }
+
+
+
+</script>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
