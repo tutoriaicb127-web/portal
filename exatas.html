@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exatas - Tutoria ICB</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --cor-fundo-site: #eaf1f5;
+            --cor-primaria: #5c7fa9;
+            --cor-vinho: #9e1b32;
+        }
+
+        body { 
+            background-color: var(--cor-fundo-site); 
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            padding-bottom: 60px;
+        }
+
+        /* CABEÇALHO HERO */
+        .capa-exatas {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #1a252f;
+        }
+
+        .img-capa {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        .titulo-capa {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        /* ACCORDIONS */
+        .accordion-item {
+            border: none;
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
+
+        .accordion-button {
+            font-weight: 700;
+            color: var(--cor-primaria);
+            background-color: white;
+            box-shadow: none !important;
+        }
+
+        .accordion-button:not(.collapsed) {
+            background-color: #dce7f0;
+            color: var(--cor-primaria);
+        }
+
+        /* CARDS DE MATERIAIS */
+        .card-material {
+            border: none;
+            border-radius: 10px;
+            background-color: #f8fafc;
+            transition: transform 0.2s;
+        }
+
+        .card-material:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-baixar {
+            background-color: var(--cor-primaria);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-weight: 600;
+        }
+
+        .btn-baixar:hover {
+            background-color: var(--cor-vinho);
+            color: white;
+        }
+
+        .btn-voltar-fixo {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: white;
+            color: var(--cor-primaria);
+            border: 2px solid var(--cor-primaria);
+            border-radius: 50px;
+            padding: 8px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* ABAS PRINCIPAIS SEM BARRA DE ROLAGEM VISÍVEL */
+        .nav-pills {
+            gap: 8px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE/Edge */
+            padding-bottom: 4px;
+        }
+
+        .nav-pills::-webkit-scrollbar {
+            display: none; /* Chrome, Safari e Edge */
+            width: 0;
+            height: 0;
+        }
+
+        .nav-pills .nav-link {
+            color: var(--cor-primaria);
+            font-weight: 600;
+            border-radius: 50px;
+            border: 1px solid var(--cor-primaria);
+            white-space: nowrap;
+            padding: 8px 20px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--cor-primaria);
+            border-color: var(--cor-primaria);
+            color: white;
+        }
+
+        /* IFRAME DE AVISO CONSTRUÇÃO */
+        .iframe-construcao {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 12px;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO HEADER -->
+    <header class="capa-exatas">
+        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80" alt="Exatas" class="img-capa">
+        <h1 class="titulo-capa">Exatas</h1>
+    </header>
+
+    <main class="container my-4">
+        <!-- NAVEGAÇÃO POR ABAS -->
+        <ul class="nav nav-pills justify-content-start justify-content-md-center mb-4" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-apostilas-tab" data-bs-toggle="pill" data-bs-target="#pills-apostilas" type="button" role="tab">Apostilas</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-slides-tab" data-bs-toggle="pill" data-bs-target="#pills-slides" type="button" role="tab">Slides</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-video-tab" data-bs-toggle="pill" data-bs-target="#pills-video" type="button" role="tab">Vídeos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-ferramentas-tab" data-bs-toggle="pill" data-bs-target="#pills-ferramentas" type="button" role="tab">Ferramentas</button>
+            </li>
+        </ul>
+
+        <!-- CONTEÚDO DAS ABAS -->
+        <div class="tab-content" id="pills-tabContent">
+            
+            <!-- 1. ABA APOSTILAS -->
+            <div class="tab-pane fade show active" id="pills-apostilas" role="tabpanel">
+                <div class="accordion shadow-sm" id="accordionApostilas">
+                    
+                    <div class="accordion-item mb-2">
+                        <h2 class="accordion-header" id="headApPreCalc">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseApPreCalc" aria-expanded="false" aria-controls="collapseApPreCalc">
+                                Pré-Cálculo
+                            </button>
+                        </h2>
+                        <div id="collapseApPreCalc" class="accordion-collapse collapse" aria-labelledby="headApPreCalc" data-bs-parent="#accordionApostilas">
+                            <div class="accordion-body">
+                                <div class="card card-material shadow-sm mb-2">
+                                    <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold">Conjuntos Numéricos e Operações Básicas</h6>
+                                            <p class="small text-muted mb-0">PDF</p>
+                                        </div>
+                                        <a href="https://drive.google.com/file/d/1y6lzSZVO4yOpTPqWcjF31pIHifwin1Wc/view?usp=drivesdk" target="_blank" class="btn btn-sm btn-baixar">Acessar</a>
+                                    </div>
+                                </div>
+                                <div class="card card-material shadow-sm mb-0">
+                                    <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold">Expressões Numéricas e Frações</h6>
+                                            <p class="small text-muted mb-0">PDF</p>
+                                        </div>
+                                        <a href="https://drive.google.com/file/d/1UfQYzYhcgMaeRo6zKiUogg7enee24R1B/view?usp=drivesdk" target="_blank" class="btn btn-sm btn-baixar">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-2">
+                        <h2 class="accordion-header" id="headApCalc1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseApCalc1" aria-expanded="false" aria-controls="collapseApCalc1">
+                                Cálculo I
+                            </button>
+                        </h2>
+                        <div id="collapseApCalc1" class="accordion-collapse collapse" aria-labelledby="headApCalc1" data-bs-parent="#accordionApostilas">
+                            <div class="accordion-body">
+                                <div class="card card-material shadow-sm mb-0">
+                                    <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold">Funções</h6>
+                                            <p class="small text-muted mb-0">PDF</p>
+                                        </div>
+                                        <a href="https://drive.google.com/file/d/1tbdIyVO4lyBg0UYuuq9xQIf0uMEDKOrk/view?usp=drivesdk" target="_blank" class="btn btn-sm btn-baixar">Acessar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 2. ABA SLIDES -->
+            <div class="tab-pane fade" id="pills-slides" role="tabpanel">
+                <div class="accordion shadow-sm" id="accordionSlides">
+                    
+                    <div class="accordion-item mb-2">
+                        <h2 class="accordion-header" id="headSlCalc1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSlCalc1" aria-expanded="false" aria-controls="collapseSlCalc1">
+                                Cálculo I
+                            </button>
+                        </h2>
+                        <div id="collapseSlCalc1" class="accordion-collapse collapse" aria-labelledby="headSlCalc1" data-bs-parent="#accordionSlides">
+                            <div class="accordion-body">
+                                <div class="card card-material shadow-sm mb-0">
+                                    <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold">Slide 1: Funções, Gráficos e Operações</h6>
+                                            <p class="small text-muted mb-0">PowerPoint | Aula 01</p>
+                                        </div>
+                                        <a href="https://drive.google.com/file/d/1SUwDNOFgcEvMjAP9Mvr0-UaK7eoblwNL/view?usp=drivesdk" target="_blank" class="btn btn-sm btn-baixar">Ver Slides</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 3. ABA VÍDEOS -->
+            <div class="tab-pane fade" id="pills-video" role="tabpanel">
+                <div class="accordion shadow-sm" id="accordionVideos">
+                    
+                    <div class="accordion-item mb-2">
+                        <h2 class="accordion-header" id="headVidCalc1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVidCalc1" aria-expanded="false" aria-controls="collapseVidCalc1">
+                                Cálculo I
+                            </button>
+                        </h2>
+                        <div id="collapseVidCalc1" class="accordion-collapse collapse" aria-labelledby="headVidCalc1" data-bs-parent="#accordionVideos">
+                            <div class="accordion-body">
+                                <div class="card card-material shadow-sm mb-2">
+                                    <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold">Cálculo 1 • Equaciona</h6>
+                                            <p class="small text-muted mb-0">YouTube | Playlist</p>
+                                        </div>
+                                        <a href="https://youtube.com/playlist?list=PLEfwqyY2ox86LhxKybOY3_IG-7R5herLC&si=89s09XvpNG3dM4Oy" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold">Assistir</a>
+                                    </div>
+                                </div>
+                                <div class="card card-material shadow-sm mb-0">
+                                    <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold">Projeto Newton | Cálculo 1 | Nitae UFPA</h6>
+                                            <p class="small text-muted mb-0">YouTube | Playlist Oficial</p>
+                                        </div>
+                                        <a href="https://youtube.com/playlist?list=PLyLl-f6RUjdT1jXWHiZJ6yWuKzaFhnFN8&si=dQPIaiDrifSjvGLq" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold">Assistir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item mb-2">
+                        <h2 class="accordion-header" id="headVidAlgLin">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVidAlgLin" aria-expanded="false" aria-controls="collapseVidAlgLin">
+                                Álgebra Linear
+                            </button>
+                        </h2>
+                        <div id="collapseVidAlgLin" class="accordion-collapse collapse" aria-labelledby="headVidAlgLin" data-bs-parent="#accordionVideos">
+                            <div class="accordion-body">
+                                <div class="card card-material shadow-sm mb-0">
+                                    <div class="card-body d-flex justify-content-between align-items-center p-3">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold">Álgebra Linear • Matemateca</h6>
+                                            <p class="small text-muted mb-0">YouTube | Playlist</p>
+                                        </div>
+                                        <a href="https://youtube.com/playlist?list=PLmtT_GZAQdt-9QNWJw1vzJldnuyGmdidq&si=fkYUvS6oN0uQQHsb" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill px-3 fw-bold">Assistir</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 4. ABA FERRAMENTAS -->
+            <div class="tab-pane fade" id="pills-ferramentas" role="tabpanel">
+                <iframe src="aviso.html" class="iframe-construcao shadow-sm" title="Em Construção"></iframe>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- BOTÃO FIXO VOLTAR -->
+    <a href="javascript:history.back()" class="btn-voltar-fixo">← Voltar</a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

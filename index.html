@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutoria ICB - UFPA</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --cor-fundo-site: #eaf1f5;
+            --cor-primaria-logo: #5c7fa9;
+            --cor-destaque-brasao: #9e1b32;
+            --cor-texto: #333333;
+        }
+
+        body { 
+            background-color: var(--cor-fundo-site); 
+            color: var(--cor-texto);
+        }
+
+        /* Header Fixo Ajustado */
+        .header-fixo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #5c7fa9 0%, #3e5b7a 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;    
+            justify-content: center; 
+            text-align: center;      
+            padding: 15px 0;
+            z-index: 1000;
+            transition: height 0.1s ease-out;
+        }
+
+        .logo-topo {
+            height: 80px; 
+            margin-bottom: 8px;
+            transition: height 0.1s ease-out;
+        }
+
+        .titulo-site {
+            font-size: 26px; 
+            margin: 0;
+            font-weight: bold;
+            width: 100%;
+            line-height: 1.2;
+            color: #ffffff;
+            transition: font-size 0.1s ease-out;
+        }
+
+        .subtitulo-site {
+            color: #ffffff;
+            margin-top: 4px;
+            margin-bottom: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Espaçador Contínuo */
+        .espacador {
+            height: 220px; 
+            width: 100%;
+            display: block;
+        }
+
+        /* BARRA DE BOTÕES ROLÁVEIS (CHIPS) */
+        .pista-filtros {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding: 10px 5px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            white-space: nowrap;
+        }
+
+        .pista-filtros::-webkit-scrollbar {
+            display: none;
+        }
+
+        .btn-filtro {
+            background-color: #ffffff;
+            color: var(--cor-primaria-logo);
+            border: 2px solid var(--cor-primaria-logo);
+            border-radius: 50px;
+            padding: 8px 18px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-filtro:hover, .btn-filtro.active {
+            background-color: var(--cor-primaria-logo);
+            color: #ffffff;
+            border-color: var(--cor-primaria-logo);
+            box-shadow: 0 4px 10px rgba(92, 127, 169, 0.3);
+        }
+
+        /* Pista de Cards de Disciplinas */
+        .pista-cards {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            gap: 15px;
+            padding: 15px 5px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .pista-cards::-webkit-scrollbar { 
+            display: none; 
+        }
+
+        .card-wrapper {
+            flex: 0 0 82%; 
+            scroll-snap-align: center;
+            text-decoration: none !important;
+            color: inherit;
+        }
+
+        @media (min-width: 768px) {
+            .card-wrapper {
+                flex: 0 0 31%;
+            }
+        }
+
+        .card-categoria {
+            border: none;
+            border-radius: 20px;
+            height: 320px; 
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; 
+            overflow: hidden; 
+            transition: transform 0.2s ease;
+        }
+
+        .img-card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            z-index: 1; 
+            transition: transform 0.3s ease;
+        }
+
+        .card-wrapper:hover .img-card,
+        .card-wrapper:active .img-card {
+            transform: scale(1.05);
+        }
+
+        .card-categoria .text-block {
+            padding: 20px 15px;
+            z-index: 2; 
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 60%, rgba(0,0,0,0) 100%);
+            border-radius: 0 0 20px 20px;
+            width: 100%;
+        }
+
+        .card-categoria h3 {
+            margin: 0;
+            font-weight: bold;
+            color: #ffffff !important; 
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5); 
+        }
+
+        .card-categoria p.text-muted {
+            margin: 5px 0 0 0;
+            font-size: 0.85rem;
+            color: #eeeeee !important; 
+        }
+
+        /* Estilos da Seção Nossa Equipe */
+        .grid-equipe {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+        }
+
+        .card-tutor {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .avatar-tutor {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #eaf1f5;
+            color: var(--cor-primaria-logo);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: #ffffff;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s ease;
+            width: 100%;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1da851;
+            color: #ffffff;
+        }
+
+        .secao-conteudo {
+            display: none;
+        }
+
+        .secao-conteudo.active {
+            display: block;
+        }
+
+        /* Estilo do iframe do aviso */
+        .frame-aviso {
+            width: 100%;
+            height: 450px;
+            border: none;
+            border-radius: 15px;
+            background-color: transparent;
+        }
+
+        /* Card genérico de informações */
+        .card-info {
+            background-color: #ffffff;
+            border-radius: 15px;
+            padding: 20px;
+            border: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+.style-faq-item {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #eaf1f5;
+    color: var(--cor-primaria-logo);
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+    </style>
+</head>
+<body>
+
+    <header class="header-fixo">
+        <div class="container text-center">
+            <img src="logo_tutoria.png" alt="Logo Tutoria ICB" class="logo-topo">
+            <h1 class="titulo-site">Portal de Apoio ao Discente</h1>
+            <p class="subtitulo-site">ICB - UFPA</p>
+        </div>
+    </header>
+
+    <div class="espacador"></div>
+
+    <main class="container my-4">
+
+        <!-- BOTÕES ROLÁVEIS (CHIPS) -->
+        <div class="pista-filtros mb-4">
+            <button class="btn-filtro active" onclick="alternarAba('disciplinas', this)">
+                <i class="bi bi-journal-bookmark"></i> Disciplinas
+            </button>
+            <button class="btn-filtro" onclick="alternarAba('tutores', this)">
+                <i class="bi bi-people"></i> Nossa Equipe
+            </button>
+            <button class="btn-filtro" onclick="alternarAba('guia', this)">
+                <i class="bi bi-compass"></i> Guia do Discente
+            </button>
+            <button class="btn-filtro" onclick="alternarAba('faq', this)">
+                <i class="bi bi-question-circle"></i> Dúvidas Frequentes
+            </button>
+        </div>
+
+                               <!-- SEÇÃO 1: DISCIPLINAS -->
+        <section id="secao-disciplinas" class="secao-conteudo active">
+            <div class="pista-cards">
+                <!-- Exatas -->
+                <a href="exatas.html" class="card-wrapper">
+                    <div class="card shadow-sm card-categoria text-center">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80" alt="Exatas" class="img-card">
+                        <div class="text-block">
+                            <h3 class="h5">Exatas</h3>
+                            <p class="text-muted mb-0">Cálculo, Física e Química.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Biológicas -->
+                <a href="biologicas.html" class="card-wrapper">
+                    <div class="card shadow-sm card-categoria text-center">
+                        <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=800&q=80" alt="Biológicas" class="img-card">
+                        <div class="text-block">
+                            <h3 class="h5">Biológicas</h3>
+                            <p class="text-muted mb-0">Genética, Ecologia e Botânica.</p>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Saúde -->
+                <a href="aviso.html" class="card-wrapper">
+                    <div class="card shadow-sm card-categoria text-center">
+                        <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&w=800&q=80" alt="Saúde" class="img-card">
+                        <div class="text-block">
+                            <h3 class="h5">Saúde</h3>
+                            <p class="text-muted mb-0">Anatomia, Fisiologia e Histologia.</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+
+
+
+        <!-- SEÇÃO 2: NOSSA EQUIPE -->
+        <section id="secao-tutores" class="secao-conteudo">
+            <div class="grid-equipe">
+
+                <!-- Alberto -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">Alberto</h3>
+                        <span class="badge bg-light text-secondary border">Odontologia</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 8306-0756" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+
+                <!-- Fernando -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">Fernando</h3>
+                        <span class="badge bg-light text-secondary border">Física</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 8614-3083" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+
+                <!-- Gabriele -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">Gabriele</h3>
+                        <span class="badge bg-light text-secondary border">Lic. Biologia</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 8577-5074" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+
+                <!-- Ítalo -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">Ítalo</h3>
+                        <span class="badge bg-light text-secondary border">Biomedicina</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 8619-4102" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+
+                <!-- Kailana -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">Kailana</h3>
+                        <span class="badge bg-light text-secondary border">Medicina</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 8475-6226" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+
+                <!-- Lívia -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">Lívia</h3>
+                        <span class="badge bg-light text-secondary border">Biotecnologia</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 8017-1467" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+
+                <!-- Manoel -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">Manoel</h3>
+                        <span class="badge bg-light text-secondary border">Biotecnologia</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 8596-5685" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+
+                <!-- Taissa -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">Taissa</h3>
+                        <span class="badge bg-light text-secondary border">Bach. Biologia</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 9136-9347" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+
+                <!-- William -->
+                <div class="card-tutor">
+                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div>
+                        <h3 class="h6 fw-bold mb-1">William</h3>
+                        <span class="badge bg-light text-secondary border">Biomedicina</span>
+                    </div>
+                    <a href="https://wa.me/+55 91 8733-3378" target="_blank" class="btn-whatsapp">
+                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: GUIA DO DISCENTE (Carrega aviso.html diretamente) -->
+        <section id="secao-guia" class="secao-conteudo">
+            <iframe src="aviso.html" class="frame-aviso" title="Aviso Guia do Discente"></iframe>
+        </section>
+
+                <!-- SEÇÃO 4: DÚVIDAS FREQUENTES (FAQ) -->
+        <section id="secao-faq" class="secao-conteudo">
+            <div class="card-info mb-4">
+                <h2 class="h4 fw-bold mb-2">Dúvidas Frequentes</h2>
+                <p class="text-muted mb-0">Confira abaixo as principais informações sobre o funcionamento do Programa de Tutoria do ICB.</p>
+            </div>
+
+            <div class="accordion" id="accordionFAQ">
+                <!-- Pergunta 1 -->
+                <div class="accordion-item border-0 shadow-sm mb-3 style-faq-item">
+                    <h3 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                             As tutorias são gratuitas?
+                        </button>
+                    </h3>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionFAQ">
+                        <div class="accordion-body text-secondary">
+                            Sim! As tutorias são totalmente gratuitas para os alunos. Você não precisa pagar absolutamente nada para participar.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pergunta 2 -->
+                <div class="accordion-item border-0 shadow-sm mb-3 style-faq-item">
+                    <h3 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                             Como faço para agendar/marcar uma tutoria?
+                        </button>
+                    </h3>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionFAQ">
+                        <div class="accordion-body text-secondary">
+                            Para marcar uma tutoria, basta entrar em contato direto com o tutor responsável pela disciplina do seu interesse através do WhatsApp. Vocês combinarão juntos um horário favorável para ambos.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pergunta 3 -->
+                <div class="accordion-item border-0 shadow-sm mb-3 style-faq-item">
+                    <h3 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                             A tutoria é individual ou em grupo?
+                        </button>
+                    </h3>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionFAQ">
+                        <div class="accordion-body text-secondary">
+                            Pode ser das duas formas! As tutorias podem ser individuais (onde o tutor atende você de forma exclusiva) ou em turmas (atendendo vários alunos ou até a turma inteira de uma vez).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pergunta 4 -->
+                <div class="accordion-item border-0 shadow-sm mb-3 style-faq-item">
+                    <h3 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                             Preciso fazer algum cadastro prévio?
+                        </button>
+                    </h3>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionFAQ">
+                        <div class="accordion-body text-secondary">
+                            Não é necessário fazer nenhum tipo de cadastro ou inscrição formal. Basta selecionar a disciplina, pegar o contato do tutor na aba "Nossa Equipe" e mandar uma mensagem.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pergunta 5 -->
+                <div class="accordion-item border-0 shadow-sm mb-3 style-faq-item">
+                    <h3 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                             E se eu ainda tiver alguma dúvida?
+                        </button>
+                    </h3>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionFAQ">
+                        <div class="accordion-body text-secondary">
+                            Sem problemas! Se restar qualquer outra dúvida, você pode mandar uma mensagem no WhatsApp de qualquer um dos tutores da nossa equipe para conversar e se orientar.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="text-center py-4 text-muted border-top bg-white mt-5">
+        <div class="container">
+            <p class="small mb-2">&copy; 2026 Programa de Tutoria - ICB / UFPA</p>
+            <div class="d-flex justify-content-center gap-3 border-top pt-2 mt-2">
+                <a href="#" class="text-decoration-none small text-muted" data-bs-toggle="modal" data-bs-target="#modalTermos">Termos de Uso</a>
+                <span class="text-muted small">•</span>
+                <a href="#" class="text-decoration-none small text-muted" data-bs-toggle="modal" data-bs-target="#modalPrivacidade">Política de Privacidade</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: TERMOS DE USO -->
+    <div class="modal fade" id="modalTermos" tabindex="-1" aria-labelledby="modalTermosLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title h6 fw-bold" id="modalTermosLabel">Termos de Uso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body small text-start">
+                    <p><strong>1. Aceitação:</strong> Ao utilizar este portal, você concorda em utilizar os materiais e contatos exclusivamente para fins acadêmicos.</p>
+                    <p><strong>2. Uso de Contatos:</strong> Os canais de atendimento dos tutores destinam-se unicamente ao esclarecimento de dúvidas sobre as disciplinas. É vedado o envio de mensagens inadequadas ou spam.</p>
+                    <p><strong>3. Plataformas de Terceiros:</strong> O acesso aos materiais de estudo ocorre via Google Drive, estando sujeito aos termos de serviço e autenticação do próprio Google.</p>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: POLÍTICA DE PRIVACIDADE -->
+    <div class="modal fade" id="modalPrivacidade" tabindex="-1" aria-labelledby="modalPrivacidadeLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title h6 fw-bold" id="modalPrivacidadeLabel">Política de Privacidade</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body small text-start">
+                    <p><strong>1. Coleta de Dados:</strong> Este site institucional não realiza a coleta nem o armazenamento de dados pessoais em servidores próprios.</p>
+                    <p><strong>2. Autenticação Google:</strong> A solicitação de login ao acessar arquivos no Google Drive é gerenciada integralmente pela infraestrutura da Google LLC.</p>
+                    <p><strong>3. Dados dos Tutores:</strong> As informações de contato disponibilizadas possuem autorização dos respectivos responsáveis para fins exclusivos de apoio ao discente.</p>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SCRIPTS DE INTERAÇÃO -->
+    <script>
+        // Animação Contínua e Suave do Header
+        window.onscroll = function() {
+            const header = document.querySelector(".header-fixo");
+            const logo = document.querySelector(".logo-topo");
+            const titulo = document.querySelector(".titulo-site");
+            const subtitulo = document.querySelector(".subtitulo-site");
+            
+            let scroll = window.scrollY;
+            let progresso = Math.min(scroll / 150, 1); 
+
+            let alturaAtual = 220 - (progresso * 150);
+            
+            header.style.height = `${alturaAtual}px`;
+            logo.style.height = (80 - (progresso * 40)) + "px";
+            titulo.style.fontSize = (26 - (progresso * 8)) + "px";
+            
+            subtitulo.style.opacity = 1 - progresso;
+            subtitulo.style.display = (progresso > 0.8) ? "none" : "block";
+        };
+
+        // Alternar visualização pelas abas (Chips)
+        function alternarAba(nomeAba, elementoBotao) {
+            document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('active'));
+            elementoBotao.classList.add('active');
+
+            document.querySelectorAll('.secao-conteudo').forEach(secao => secao.classList.remove('active'));
+            const secaoAlvo = document.getElementById(`secao-${nomeAba}`);
+            if (secaoAlvo) {
+                secaoAlvo.classList.add('active');
+            }
+        }
+
+        // CONTROLADOR DO BOTÃO VOLTAR NOS MODAIS
+        let fecharPeloVoltar = false;
+
+        document.querySelectorAll('.modal').forEach(modalElement => {
+            modalElement.addEventListener('show.bs.modal', function () {
+                window.history.pushState({ modalAberto: this.id }, "");
+            });
+
+            modalElement.addEventListener('hidden.bs.modal', function () {
+                if (!fecharPeloVoltar && window.history.state && window.history.state.modalAberto) {
+                    window.history.back();
+                }
+                fecharPeloVoltar = false;
+            });
+        });
+
+        window.addEventListener('popstate', function () {
+            const modalAberto = document.querySelector('.modal.show');
+            if (modalAberto) {
+                fecharPeloVoltar = true;
+                const instance = bootstrap.Modal.getInstance(modalAberto) || new bootstrap.Modal(modalAberto);
+                instance.hide();
+            }
+        });
+    </script>
+</body>
+</html>
+
