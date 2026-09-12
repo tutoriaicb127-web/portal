@@ -218,6 +218,22 @@
             justify-content: center;
             font-size: 1.8rem;
             margin-bottom: 12px;
+            overflow: hidden; /* Corta a imagem no formato de círculo */
+        }
+
+        .img-avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Impede que a foto fique esticada ou esmagada */
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .cursor-pointer:hover {
+            transform: scale(1.05);
         }
 
         .btn-whatsapp {
@@ -269,22 +285,21 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
-.style-faq-item {
-    border-radius: 12px !important;
-    overflow: hidden;
-}
+        .style-faq-item {
+            border-radius: 12px !important;
+            overflow: hidden;
+        }
 
-.accordion-button:not(.collapsed) {
-    background-color: #eaf1f5;
-    color: var(--cor-primaria-logo);
-    box-shadow: none;
-}
+        .accordion-button:not(.collapsed) {
+            background-color: #eaf1f5;
+            color: var(--cor-primaria-logo);
+            box-shadow: none;
+        }
 
-.accordion-button:focus {
-    box-shadow: none;
-    border-color: rgba(0,0,0,.125);
-}
-
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(0,0,0,.125);
+        }
     </style>
 </head>
 <body>
@@ -317,7 +332,7 @@
             </button>
         </div>
 
-                               <!-- SEÇÃO 1: DISCIPLINAS -->
+        <!-- SEÇÃO 1: DISCIPLINAS -->
         <section id="secao-disciplinas" class="secao-conteudo active">
             <div class="pista-cards">
                 <!-- Exatas -->
@@ -355,9 +370,6 @@
             </div>
         </section>
 
-
-
-
         <!-- SEÇÃO 2: NOSSA EQUIPE -->
         <section id="secao-tutores" class="secao-conteudo">
             <div class="grid-equipe">
@@ -376,7 +388,12 @@
 
                 <!-- Fernando -->
                 <div class="card-tutor">
-                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div class="avatar-tutor cursor-pointer" 
+                         data-bs-toggle="modal" 
+                         data-bs-target="#modalFotoTutor" 
+                         onclick="abrirFoto(this.querySelector('img').src)">
+                        <img src="fernando.jpg" alt="Foto do Fernando" class="img-avatar">
+                    </div>
                     <div>
                         <h3 class="h6 fw-bold mb-1">Fernando</h3>
                         <span class="badge bg-light text-secondary border">Física</span>
@@ -388,13 +405,18 @@
 
                 <!-- Gabrielle -->
                 <div class="card-tutor">
-                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div class="avatar-tutor cursor-pointer" 
+                         data-bs-toggle="modal" 
+                         data-bs-target="#modalFotoTutor" 
+                         onclick="abrirFoto(this.querySelector('img').src)">
+                        <img src="gabrielle.jpg" alt="Foto da Gabrielle" class="img-avatar">
+                    </div>
                     <div>
                         <h3 class="h6 fw-bold mb-1">Gabrielle</h3>
-                        <span class="badge bg-light text-secondary border">Lic. Biologia</span>
+                        <span class="badge bg-light text-secondary border">Lic.Biologia</span>
                     </div>
                     <a href="https://wa.me/+55 91 8577-5074" target="_blank" class="btn-whatsapp">
-                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                        <i class="bi bi-whatsapp"></i> Contatar Tutora
                     </a>
                 </div>
 
@@ -412,13 +434,18 @@
 
                 <!-- Kaylana -->
                 <div class="card-tutor">
-                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div class="avatar-tutor cursor-pointer" 
+                         data-bs-toggle="modal" 
+                         data-bs-target="#modalFotoTutor" 
+                         onclick="abrirFoto(this.querySelector('img').src)">
+                        <img src="kaylana.jpg" alt="Foto da Kaylana" class="img-avatar">
+                    </div>
                     <div>
                         <h3 class="h6 fw-bold mb-1">Kaylana</h3>
                         <span class="badge bg-light text-secondary border">Medicina</span>
                     </div>
                     <a href="https://wa.me/+55 91 8475-6226" target="_blank" class="btn-whatsapp">
-                        <i class="bi bi-whatsapp"></i> Contatar Tutor
+                        <i class="bi bi-whatsapp"></i> Contatar Tutora
                     </a>
                 </div>
 
@@ -436,7 +463,12 @@
 
                 <!-- Manoel -->
                 <div class="card-tutor">
-                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div class="avatar-tutor cursor-pointer" 
+                         data-bs-toggle="modal" 
+                         data-bs-target="#modalFotoTutor" 
+                         onclick="abrirFoto(this.querySelector('img').src)">
+                        <img src="manoel.jpg" alt="Foto do Manoel" class="img-avatar">
+                    </div>
                     <div>
                         <h3 class="h6 fw-bold mb-1">Manoel</h3>
                         <span class="badge bg-light text-secondary border">Biotecnologia</span>
@@ -472,12 +504,12 @@
             </div>
         </section>
 
-        <!-- SEÇÃO 3: GUIA DO DISCENTE (Carrega aviso.html diretamente) -->
+        <!-- SEÇÃO 3: GUIA DO DISCENTE -->
         <section id="secao-guia" class="secao-conteudo">
             <iframe src="aviso.html" class="frame-aviso" title="Aviso Guia do Discente"></iframe>
         </section>
 
-                <!-- SEÇÃO 4: DÚVIDAS FREQUENTES (FAQ) -->
+        <!-- SEÇÃO 4: DÚVIDAS FREQUENTES (FAQ) -->
         <section id="secao-faq" class="secao-conteudo">
             <div class="card-info mb-4">
                 <h2 class="h4 fw-bold mb-2">Dúvidas Frequentes</h2>
@@ -557,7 +589,6 @@
             </div>
         </section>
 
-
     </main>
 
     <!-- RODAPÉ -->
@@ -612,6 +643,19 @@
         </div>
     </div>
 
+    <!-- MODAL PARA EXPANDIR FOTO DO TUTOR -->
+    <div class="modal fade" id="modalFotoTutor" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-transparent border-0 text-center">
+                <div class="modal-body p-0 position-relative">
+                    <!-- Botão 'X' no canto superior esquerdo -->
+                    <button type="button" class="btn-close btn-close-white position-absolute top-0 start-0 m-3 z-3 shadow-none" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    <img src="" id="imgModalTutor" class="img-fluid rounded-4 shadow-lg" alt="Foto Ampliada">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- BOOTSTRAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -649,6 +693,11 @@
             }
         }
 
+        // Função para carregar a foto do tutor dentro do Modal
+        function abrirFoto(urlFoto) {
+            document.getElementById('imgModalTutor').src = urlFoto;
+        }
+
         // CONTROLADOR DO BOTÃO VOLTAR NOS MODAIS
         let fecharPeloVoltar = false;
 
@@ -676,4 +725,3 @@
     </script>
 </body>
 </html>
-
