@@ -376,7 +376,12 @@
 
                 <!-- Alberto -->
                 <div class="card-tutor">
-                    <div class="avatar-tutor"><i class="bi bi-person"></i></div>
+                    <div class="avatar-tutor cursor-pointer" 
+                         data-bs-toggle="modal" 
+                         data-bs-target="#modalFotoTutor" 
+                         onclick="abrirFoto(this.querySelector('img').src)">
+                        <img src="alberto.jpg" alt="Foto do Alberto" class="img-avatar">
+                    </div>
                     <div>
                         <h3 class="h6 fw-bold mb-1">Alberto</h3>
                         <span class="badge bg-light text-secondary border">Odontologia</span>
